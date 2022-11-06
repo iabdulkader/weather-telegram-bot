@@ -31,11 +31,6 @@ def help_command(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Help!')
 
 
-def farhad_command(update: Update, context: CallbackContext) -> None:
-    """Send a message when the command /help is issued."""
-    update.message.reply_text('Bokachoda to?')
-
-
 def weather(update: Update, context: CallbackContext) -> None:
     api_key = "b78ac697e648cb55b8f9ceb396f62e48"
     base_url = "https://api.openweathermap.org/data/2.5/weather?q="
@@ -79,18 +74,14 @@ def main() -> None:
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help_command))
-    dispatcher.add_handler(CommandHandler("farhad", farhad_command))
     dispatcher.add_handler(CommandHandler("weather", weather))
 
-    # on non command i.e message - echo the message on Telegram
+
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
 
     # Start the Bot
     updater.start_polling()
 
-    # Run the bot until you press Ctrl-C or the process receives SIGINT,
-    # SIGTERM or SIGABRT. This should be used most of the time, since
-    # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
 
